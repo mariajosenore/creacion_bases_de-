@@ -1,0 +1,42 @@
+-----cuantas categorias tengo en la bd?
+
+select count(1) from categories;
+select count (1) from employees;
+select count (1) from products; 
+select * from products limit 10;
+select product_name from products;
+------- que categoria tiene el tofu?
+select p.product_name, c.category_name
+from products p
+inner join categories c on p.category_id = c.category_id 
+where UPPER (p.product_name) = 'TOFU'
+select min(unit_price) as valor_minimo, max(unit_price) as valor_maximo, avg (unit_price) 
+valor_promedio,round(avg(unit_price):: numeric,4) valor_promedio_round 
+from products;
+-----cuales son los productos que la empresa tiene en bodega con las siguientes cantidades: 120, 22, 24,35,42,9
+
+SELECT product_name, units_in_stock
+FROM products
+WHERE units_in_stock IN (120, 22, 24, 35, 42, 9);
+----cuantos prductos tengo en bodega
+SELECT SUM(units_in_stock) AS total_en_bodega
+FROM products;
+----cuales productos inician con la letra s
+SELECT product_name, units_in_stock
+FROM products
+WHERE product_name LIKE 'S%';
+
+SELECT COUNT(*) AS productos_terminan_en_s
+FROM products
+WHERE product_name LIKE '%n';
+
+SELECT product_name, units_in_stock
+FROM products
+WHERE product_name LIKE '%cho%';
+
+----cuales son los codigos de las ordenes (order_id) y el valor del flete(freight) que fueron registradas por el 
+-------cliente(custmer_id) VICTE entre el 1 de enero de 1996 y el 31 de diciembre de 1997
+SELECT order_id, freight
+FROM orders
+WHERE customer_id = 'VICTE'
+  AND order_date BETWEEN '1996-01-01' AND '1997-12-31';
